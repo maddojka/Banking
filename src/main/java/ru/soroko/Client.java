@@ -18,6 +18,12 @@ public class Client {
     @GeneratedValue
     private long id;
 
+    @NotNull
+    @NotBlank
+    @Size(min = 10, max = 50)
+    @Column(name = "full_name", nullable = false, length = 100)
+    private String fullName;
+
     @Positive
     @Column(name = "phoneNumber", nullable = false)
     private long phoneNumber;
@@ -29,18 +35,20 @@ public class Client {
     private String email;
 
     @NotNull
-    @NotBlank
-    @Size(min = 10, max = 50)
-    @Column(name = "full_name", nullable = false, length = 100)
-    private String fullName;
-
-    @NotNull
     @Past
     @Column(name = "date_of_birth", nullable = false)
     private LocalDate dateOfBirth;
 
     @NotNull
     @OneToOne
-    @JoinColumn(name = "bank_account_id", unique = true, nullable = false)
-    private Account bankAccount;
+    @JoinColumn(name = "account_id", unique = true, nullable = false)
+    private Account account;
+
+    public Client(String fullName, long phoneNumber, String email, LocalDate dateOfBirth, Account account) {
+        this.fullName = fullName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.dateOfBirth = dateOfBirth;
+        this.account = account;
+    }
 }
