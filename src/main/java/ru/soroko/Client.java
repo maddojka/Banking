@@ -19,13 +19,13 @@ public class Client {
     private long id;
 
     @Positive
-    @Column(name = "phoneNumber", unique = true, nullable = false)
+    @Column(name = "phoneNumber", nullable = false)
     private long phoneNumber;
 
     @NotNull
     @NotBlank
     @Size(min = 5, max = 50)
-    @Column(name = "email", unique = true, nullable = false, length = 50)
+    @Column(name = "email", nullable = false, length = 50)
     private String email;
 
     @NotNull
@@ -40,6 +40,7 @@ public class Client {
     private LocalDate dateOfBirth;
 
     @NotNull
+    @OneToOne
     @JoinColumn(name = "bank_account_id", unique = true, nullable = false)
-    private BankAccount bankAccount;
+    private Account bankAccount;
 }
