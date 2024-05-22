@@ -1,10 +1,7 @@
 package ru.soroko;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -38,6 +35,8 @@ public class Client {
     private String fullName;
 
     @NotNull
+    @Past
+    @Column(name = "date_of_birth", nullable = false)
     private LocalDate dateOfBirth;
 
     @NotNull
