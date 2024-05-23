@@ -38,9 +38,6 @@ public class Account {
     private double balance;
 
     public Account(String login, String password, double balance) {
-        if ("".equals(login)) throw new IllegalArgumentException("Логин не может быть пустой строкой");
-        if ("".equals(password)) throw new IllegalArgumentException("Пароль не может быть пустой строкой");
-        if (balance < 0) throw new IllegalArgumentException("Баланс не может быть отрицательным");
         this.login = login;
         this.password = password;
         this.balance = balance;
@@ -51,6 +48,7 @@ public class Account {
     }
 
     public synchronized void setBalance(double balance) {
+        if (balance < 0) throw new IllegalArgumentException("Баланс не может быть отрицательным");
         this.balance = balance;
     }
 
