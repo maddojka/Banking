@@ -9,6 +9,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 @Entity
 @Table(name = "ACCOUNTS")
 @NoArgsConstructor
@@ -38,6 +41,9 @@ public class Account {
     @Column(name = "balance", nullable = false)
     private double balance;
 
+    @Getter
+    private double balanceSetpoint;
+
     public Account(String login, String password, double balance) {
         setBalance(balance);
         this.login = login;
@@ -52,6 +58,26 @@ public class Account {
     public synchronized void setBalance(double balance) {
         if (balance < 0) throw new IllegalArgumentException("Баланс не может быть отрицательным");
         this.balance = balance;
+    }
+
+    public synchronized void increaseBalance() {
+        Timer timer = new Timer("Timer");
+        TimerTask task = new TimerTask() {
+            public void run() {
+                if (balance <= balanceSetpoint) {
+                    System.out.println(balance);
+                    balance += balance * 0.05;
+                } else {
+                    balance = balanceSetpoint;
+                    timer.cancel();
+                }
+            }
+        };
+
+        long delay = 1000L;
+        long period = 1000L;
+        balanceSetpoint = balance * 2.07;
+        timer.scheduleAtFixedRate(task, delay, period);
     }
 
 }

@@ -5,8 +5,11 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 
 public class Application {
+    private static final HashSet<Account> ACCOUNTS = new HashSet<>();
+
     public static void main(String[] args) {
         EntityManagerFactory factory = Persistence
                 .createEntityManagerFactory("banking");
@@ -37,6 +40,14 @@ public class Application {
         clientDao.getByPhoneNumber(892115576522L);
         clientDao.getFullName();
         clientDao.getByEmail("jaldridge@gmail.com");
+        ACCOUNTS.add(account01);
+        ACCOUNTS.add(account02);
+        ACCOUNTS.add(account03);
+        ACCOUNTS.add(account04);
+        ACCOUNTS.add(account05);
+        for (Account account : ACCOUNTS) {
+                account.increaseBalance();
+        }
         Transaction transaction01 = new Transaction(account01, account02, 400, accountDao);
         Thread thread = new Thread(transaction01);
         thread.start();
