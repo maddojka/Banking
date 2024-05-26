@@ -6,15 +6,16 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "tb_accounts")
+@Table(name = "ACCOUNTS")
+@NoArgsConstructor
 public class Account {
     @Getter
-    @Setter
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @Getter
@@ -22,7 +23,7 @@ public class Account {
     @NotNull
     @NotBlank
     @Size(min = 10, max = 50)
-    @Column(name = "full_name", nullable = false, length = 50)
+    @Column(name = "login", nullable = false, length = 50)
     private String login;
 
     @Getter
@@ -30,7 +31,7 @@ public class Account {
     @NotNull
     @NotBlank
     @Size(min = 10, max = 50)
-    @Column(name = "full_name", nullable = false, length = 50)
+    @Column(name = "password", nullable = false, length = 50)
     private String password;
 
     @PositiveOrZero
