@@ -28,7 +28,7 @@ public class Client {
     @Getter
     @Setter
     @Positive
-    @Column(name = "phoneNumber", nullable = false)
+    @Column(name = "phone_number", nullable = false)
     private long phoneNumber;
 
     @Getter
@@ -60,5 +60,17 @@ public class Client {
         this.email = email;
         this.dateOfBirth = dateOfBirth;
         this.account = account;
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", fullName='" + fullName + '\'' +
+                ", phoneNumber=" + phoneNumber +
+                ", email='" + email + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", account=" + account +
+                '}';
     }
 }

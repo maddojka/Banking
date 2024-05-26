@@ -61,39 +61,42 @@ public class ClientDao extends Dao<Client, Long> {
         return entityManager.find(Client.class, longVal);
     }
 
-    public Client getByDateOfBirth(LocalDate date) {
+    public List<Client> getByDateOfBirth(LocalDate date) {
         String getByDateOfBirthSql = "SELECT * " +
-                "FROM tb_clients " +
+                "FROM CLIENTS " +
                 "WHERE  date_of_birth >:date " +
                 "ORDER BY full_name ";
         Query query = entityManager.createNativeQuery(getByDateOfBirthSql, Client.class);
-        return (Client) query.getSingleResult();
+        query.setParameter("date", date);
+        return query.getResultList();
     }
 
     public Client getByPhoneNumber(Long phoneNumber) {
         String getByPhoneNumberSql = "SELECT * " +
-                "FROM tb_clients " +
+                "FROM CLIENTS " +
                 "WHERE  phone_number =:phoneNumber " +
                 "ORDER BY full_name ";
         Query query = entityManager.createNativeQuery(getByPhoneNumberSql, Client.class);
+        query.setParameter("phoneNumber", phoneNumber);
         return (Client) query.getSingleResult();
     }
 
-    public List<Client> getFullName(String fullName) {
+    public List<Client> getFullName() {
         String getByPhoneNumberSql = "SELECT * " +
-                "FROM tb_clients " +
-                "WHERE  full_name =:full_name " +
-                "ORDER BY full_name ";
+                "FROM CLIENTS " +
+                "WHERE full_name " +
+                "LIKE 'Sam%' ";
         Query query = entityManager.createNativeQuery(getByPhoneNumberSql, Client.class);
         return query.getResultList();
     }
 
     public Tuple getByEmail(String email) {
         String getByEmailSql = "SELECT full_name, email " +
-                "FROM tb_clients " +
+                "FROM CLIENTS " +
                 "WHERE  email =:email " +
                 "ORDER BY email ";
         Query query = entityManager.createNativeQuery(getByEmailSql, Tuple.class);
+        query.setParameter("email", email);
         return (Tuple) query.getSingleResult();
     }
 }
