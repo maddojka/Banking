@@ -16,7 +16,7 @@ public class Application {
         Account account01 = new Account("client01", "qwerty123", 1337.0);
         Client client01 = new Client("Adam Smith", 892113374563L, "asmith@gmail.com",
                 LocalDate.of(1962, 8, 6), account01);
-        clientDao.insert(client01);
+        clientDao.insert(/*client01*/null);
         Account account02 = new Account("client02", "qwerty123", 500.0);
         Client client02 = new Client("Samuel Adamson", 892187374572L, "sadamson@gmail.com",
                 LocalDate.of(1957, 11, 13), account02);
