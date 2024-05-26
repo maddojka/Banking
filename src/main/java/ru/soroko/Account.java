@@ -39,6 +39,7 @@ public class Account {
     private double balance;
 
     public Account(String login, String password, double balance) {
+        setBalance(balance);
         this.login = login;
         this.password = password;
         this.balance = balance;

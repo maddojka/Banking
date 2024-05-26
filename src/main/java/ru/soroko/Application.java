@@ -12,6 +12,7 @@ public class Application {
                 .createEntityManagerFactory("banking");
         EntityManager manager = factory.createEntityManager();
         ClientDao clientDao = new ClientDao(manager);
+        AccountDao accountDao = new AccountDao(manager);
         Account account01 = new Account("client01", "qwerty123", 1337.0);
         Client client01 = new Client("Adam Smith", 892113374563L, "asmith@gmail.com",
                 LocalDate.of(1962, 8, 6), account01);
@@ -32,5 +33,8 @@ public class Application {
         Client client05 = new Client("Amelia Brown", 892115576522L, "abrown@gmail.com",
                 LocalDate.of(1985, 4, 15), account05);
         clientDao.insert(client05);
+        Transaction transaction01 = new Transaction(account01, account02, 400, accountDao);
+        Thread thread = new Thread(transaction01);
+        thread.start();
     }
 }
